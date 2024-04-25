@@ -21,7 +21,6 @@ public class BoardListResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-    // Entity -> dto
     public BoardListResponseDto(Board board) {
         this.title = board.getTitle();
         this.createdAt = board.getModifiedAt();

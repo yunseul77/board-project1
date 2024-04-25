@@ -9,10 +9,10 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-@Entity(name = "")
+@Entity(name = "board")
 public class Board extends Timestamped {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //글 제목
