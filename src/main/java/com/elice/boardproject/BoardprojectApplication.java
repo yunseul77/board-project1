@@ -19,8 +19,8 @@ public class BoardprojectApplication {
 
 //	@Bean
 //	@Profile("local")
-//	public DataInit stubDataInit(BoardRepository boardRepository, PostRepository postRepository, CommentRepository commentRepository) {
-//		return new DataInit(boardRepository, postRepository, commentRepository);
+//	public DataInit stubDataInit(BoardRepository boardRepository) {
+//		return new DataInit(boardRepository);
 //	}
 
 }

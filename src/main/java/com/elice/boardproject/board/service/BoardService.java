@@ -2,9 +2,7 @@ package com.elice.boardproject.board.service;
 
 import com.elice.boardproject.board.domain.Board;
 import com.elice.boardproject.board.dto.BoardRequestDto;
-import com.elice.boardproject.board.dto.BoardResponseDto;
 import com.elice.boardproject.board.repository.BoardRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,12 +30,23 @@ public class BoardService {
         return boardRepository.save(board);
     }
 
+    public Board saveBoard(BoardRequestDto boardRequestDto) {
+        return boardRepository.save(boardRequestDto.toEntity());
+    }
+
     // 게시글 수정
-    public Board updateBoard(Long id, BoardRequestDto boardRequestDto) {
-        Board board = boardRepository.findById(id).orElseThrow(
+    public Board updateBoard(BoardRequestDto boardRequestDto) {
+        Board board = boardRepository.findById(boardRequestDto.getId()).orElseThrow(
                 () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
         );
-        board.update(boardRequestDto);
+        board.setTitle(boardRequestDto.getTitle());
+        board.setContent(boardRequestDto.getContent());
         return board;
+    }
+
+    // 게시글 삭제
+    public void deleteBoard(Long id) {
+        Board board = boardRepository.findById(id).orElse(null);
+        boardRepository.delete(board);
     }
 }
