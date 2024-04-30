@@ -22,5 +22,4 @@ public class BoardprojectApplication {
 //	public DataInit stubDataInit(BoardRepository boardRepository) {
 //		return new DataInit(boardRepository);
 //	}
-
 }

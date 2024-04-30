@@ -1,7 +1,7 @@
 package com.elice.boardproject.board.service;
 
-import com.elice.boardproject.board.domain.Board;
-import com.elice.boardproject.board.dto.BoardRequestDto;
+import com.elice.boardproject.board.entity.Board;
+import com.elice.boardproject.board.dto.BoardDto;
 import com.elice.boardproject.board.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,25 +22,23 @@ public class BoardService {
         return boardRepository.findAll();
     }
 
-    // 게시글 생성
-    public Board saveBoard(String title, String content) {
-        Board board = new Board();
-        board.setTitle(title);
-        board.setContent(content);
-        return boardRepository.save(board);
+    // 아이디 조회
+    public Board getById(Long id) {
+        return boardRepository.getById(id);
     }
 
-    public Board saveBoard(BoardRequestDto boardRequestDto) {
-        return boardRepository.save(boardRequestDto.toEntity());
+    // 게시글 생성
+    public Board saveBoard(BoardDto boardDto) {
+        return boardRepository.save(boardDto.toEntity());
     }
 
     // 게시글 수정
-    public Board updateBoard(BoardRequestDto boardRequestDto) {
-        Board board = boardRepository.findById(boardRequestDto.getId()).orElseThrow(
+    public Board updateBoard(BoardDto boardDto) {
+        Board board = boardRepository.findById(boardDto.getId()).orElseThrow(
                 () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
         );
-        board.setTitle(boardRequestDto.getTitle());
-        board.setContent(boardRequestDto.getContent());
+        board.setTitle(boardDto.getTitle());
+        board.setContent(boardDto.getContent());
         return board;
     }
 

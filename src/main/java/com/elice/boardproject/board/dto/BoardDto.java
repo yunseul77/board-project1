@@ -1,11 +1,11 @@
 package com.elice.boardproject.board.dto;
 
-import com.elice.boardproject.board.domain.Board;
+import com.elice.boardproject.board.entity.Board;
 import lombok.*;
 
 @NoArgsConstructor
 @Getter @Setter
-public class BoardRequestDto {
+public class BoardDto {
 
     private Long id;
     private String title;
