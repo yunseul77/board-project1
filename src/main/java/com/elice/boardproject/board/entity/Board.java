@@ -1,14 +1,15 @@
 package com.elice.boardproject.board.entity;
 
 import jakarta.persistence.*;
+import jdk.jshell.Snippet;
 import lombok.*;
 
 
 @Getter @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "board")
+@NoArgsConstructor
 @Builder
+@Entity(name = "board")
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,4 +17,6 @@ public class Board {
 
     private String title;
     private String content;
+
+
 }

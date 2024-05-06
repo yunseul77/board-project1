@@ -6,7 +6,10 @@ import com.elice.boardproject.board.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 
 @Service
 public class BoardService {
@@ -18,8 +21,14 @@ public class BoardService {
     }
 
     // 모든 게시글 리스트 조회
-    public List<Board> getAllBoards() {
+    public List<Board> postList() {
         return boardRepository.findAll();
+    }
+
+
+    // 게시물 조회
+    public Optional<Board> getPostById(Long id) {
+        return boardRepository.findById(id);
     }
 
     // 아이디 조회

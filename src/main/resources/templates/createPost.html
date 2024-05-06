@@ -19,17 +19,14 @@
         font-family: "Elice DX Neolli", sans-serif;
       }
     </style>
-    <title>게시글 수정</title>
+    <title>게시글 추가</title>
   </head>
   <body>
     <div class="container my-5">
       <div class="header mb-5">
-        <h1 class="text-center">게시글 수정</h1>
+        <h1 class="text-center">게시글 추가</h1>
       </div>
-      <form
-        th:action="@{/posts/{postId}/edit(postId=${post.id})}"
-        method="post"
-      >
+      <form th:action="@{/board/write}" method="post">
         <div class="mb-3">
           <label for="title">게시글 제목</label>
           <input
@@ -40,7 +37,6 @@
             maxlength="30"
             placeholder="게시글 제목 입력 (최대 30자)"
             required
-            th:value="${post.title}"
           />
         </div>
         <div class="mb-3">
@@ -50,10 +46,9 @@
             id="content"
             name="content"
             placeholder="내용 입력"
-            th:text="${post.content}"
           ></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">수정</button>
+        <button type="submit" class="btn btn-primary">업로드</button>
         <button
           type="button"
           class="btn btn-secondary"
