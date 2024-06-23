@@ -1,4 +1,4 @@
-package com.elice.boardproject.board.domain;
+package com.elice.boardproject.post.Entity;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @Getter
 @EntityListeners(AuditingEntityListener.class)
-public class Timestamped {
+public class BaseEntity {
 
     @CreatedDate
     public LocalDateTime CreatedAt;
