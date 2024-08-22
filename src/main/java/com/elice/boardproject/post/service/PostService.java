@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,22 +44,25 @@ public class PostService {
     }
 
     // 게시글 생성
-    public Post savePost(PostRequestDTO postRequestDto) {
-        return postRepository.save(postRequestDto.toEntity());
+    public Long savePost(PostRequestDTO postRequestDto) {
+        Post newPost = postRepository.save(postRequestDto.toEntity());
+        return newPost.getId();
     }
 
     // 게시글 수정
-    public Post updatePost(PostRequestDTO postRequestDto) {
-        Post post = postRepository.findById(postRequestDto.getId())
+    @Transactional
+    public void updatePost(Long postId, PostRequestDTO postRequestDto) {
+        Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
         post.setTitle(postRequestDto.getTitle());
         post.setContent(postRequestDto.getContent());
 
-        return post;
+        postRepository.save(post);
     }
 
     // 게시글 삭제
+    @Transactional
     public void deletePost(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));

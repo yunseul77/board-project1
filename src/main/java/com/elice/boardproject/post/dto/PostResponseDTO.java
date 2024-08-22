@@ -16,7 +16,6 @@ public class PostResponseDTO {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-
     // postResponseDto 생성
     public PostResponseDTO(Post post) {
         this.title = post.getTitle();

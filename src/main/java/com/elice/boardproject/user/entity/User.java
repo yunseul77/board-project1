@@ -33,9 +33,11 @@ public class User extends BaseEntity {
     @Column(length = 50, nullable = false)
     private String password;
 
+    @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<Post> posts = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<Comment> comments = new ArrayList<>();
 }

@@ -46,19 +46,22 @@ public class PostController {
 
     // 게시글 작성
     @PostMapping("/newPost")
-    public Post createBoard(@RequestBody PostRequestDTO postRequestDto) {
-        return postService.savePost(postRequestDto);
+    public ResponseEntity<String> createBoard(@RequestBody PostRequestDTO postRequestDto) {
+        Long postId = postService.savePost(postRequestDto);
+        return ResponseEntity.ok("게시글이 성공적으로 추가되었습니다." + postId);
     }
 
     // 게시글 수정
     @PatchMapping("/updatePost/{postId}")
-    public void updateBoard(@PathVariable Long postId, @RequestBody PostRequestDTO postRequestDto) {
-        postService.updatePost(postRequestDto);
+    public ResponseEntity<String> updateBoard(@PathVariable Long postId, @RequestBody PostRequestDTO postRequestDto) {
+        postService.updatePost(postId, postRequestDto);
+        return ResponseEntity.ok("게시글이 성공적으로 수정되었습니다.");
     }
 
     // 게시글 삭제
     @DeleteMapping("/deletePost/{postId)")
-    public void deleteBoard(@PathVariable Long postId) {
+    public ResponseEntity<String> deleteBoard(@PathVariable Long postId) {
         postService.deletePost(postId);
+        return ResponseEntity.ok("게시글이 성공적으로 삭제되었습니다.");
     }
 }

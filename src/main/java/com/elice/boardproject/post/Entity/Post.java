@@ -32,6 +32,7 @@ public class Post extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Builder.Default
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
 }
