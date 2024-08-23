@@ -5,7 +5,6 @@ import com.elice.boardproject.user.entity.User;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
 
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ import java.util.List;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "post")
+@Entity
 @Builder
 public class Post extends BaseEntity {
 

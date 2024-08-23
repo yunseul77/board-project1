@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 @AllArgsConstructor
 @Getter
 public class PostDetailResponseDTO {
-
     private PostResponseDTO postDetail;
     private Page<CommentResponseDTO> comments;
 }

@@ -15,11 +15,13 @@ public class UserRequestDTO {
     private String name;
     private String nickName;
 
-    public UserRequestDTO(User user) {
-        this.id = user.getId();
-        this.loginId = user.getLoginId();
-        this.password = user.getPassword();
-        this.name = user.getName();
-        this.nickName = user.getNickName();
+    public User toEntity() {
+        return User.builder()
+                .id(this.id)
+                .loginId(this.loginId)
+                .password(this.password)
+                .name(this.name)
+                .nickName(this.nickName)
+                .build();
     }
 }

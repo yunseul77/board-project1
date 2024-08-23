@@ -2,7 +2,6 @@ package com.elice.boardproject.post.controller;
 
 import com.elice.boardproject.comment.dto.CommentResponseDTO;
 import com.elice.boardproject.comment.service.CommentService;
-import com.elice.boardproject.post.Entity.Post;
 import com.elice.boardproject.post.dto.PostDetailResponseDTO;
 import com.elice.boardproject.post.dto.PostListResponseDTO;
 import com.elice.boardproject.post.dto.PostRequestDTO;
@@ -13,9 +12,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/post")
 public class PostController {
@@ -23,26 +24,36 @@ public class PostController {
     private final PostService postService;
     private final CommentService commentService;
 
-    // 게시글 조회
+    // 게시글 리스트 조회
     @GetMapping("/postList")
-    public ResponseEntity<Page<PostListResponseDTO>> getAllPosts(@RequestParam(name = "page", defaultValue = "0") int page,
-                                                                @RequestParam(name = "size", defaultValue = "10") int size) {
+    public String getAllPosts(@RequestParam(name = "page", defaultValue = "0") int page,
+                              @RequestParam(name = "size", defaultValue = "10") int size,
+                              Model model) {
+
         Page<PostListResponseDTO> postPage = postService.getAllPosts(PageRequest.of(page, size));
-        return new ResponseEntity<>(postPage, HttpStatus.OK);
+        model.addAttribute("posts", postPage.getContent());
+        model.addAttribute("page", postPage);
+
+        return "post/postList";
     }
 
     // 게시글 상세 조회
     @GetMapping("/detail/{postId}")
-    public ResponseEntity<PostDetailResponseDTO> getPostDetail(@PathVariable Long postId,
-                                               @RequestParam(name = "page", defaultValue = "0") int page,
-                                               @RequestParam(name = "size", defaultValue = "10") int size) {
+    public String getPostDetail(@PathVariable Long postId,
+                                @RequestParam(name = "page", defaultValue = "0") int page,
+                                @RequestParam(name = "size", defaultValue = "3") int size,
+                                Model model) {
         PostResponseDTO postDetail = postService.getPostDetail(postId);
         Page<CommentResponseDTO> comments = commentService.getPagedComment(postId, PageRequest.of(page, size));
 
-        PostDetailResponseDTO postDetailResponse = new PostDetailResponseDTO(postDetail, comments);
+        model.addAttribute("postDetail", postDetail);
+        model.addAttribute("comments", comments);
+        model.addAttribute("page", page);
+        model.addAttribute("size", size);
 
-        return new ResponseEntity<>(postDetailResponse, HttpStatus.OK);
+        return "post/postDetail"; // Thymeleaf 템플릿 이름
     }
+
 
     // 게시글 작성
     @PostMapping("/newPost")
@@ -59,7 +70,7 @@ public class PostController {
     }
 
     // 게시글 삭제
-    @DeleteMapping("/deletePost/{postId)")
+    @DeleteMapping("/deletePost/{postId}")
     public ResponseEntity<String> deleteBoard(@PathVariable Long postId) {
         postService.deletePost(postId);
         return ResponseEntity.ok("게시글이 성공적으로 삭제되었습니다.");

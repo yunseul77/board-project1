@@ -10,7 +10,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "comment")
+@Entity
 @Builder
 public class Comment extends BaseEntity {
 

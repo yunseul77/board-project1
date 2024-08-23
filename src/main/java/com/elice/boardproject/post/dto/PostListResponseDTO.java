@@ -11,15 +11,16 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 public class PostListResponseDTO {
-
+    private Long id;
     private String title;
     private String nickName;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
     public PostListResponseDTO(Post post) {
+        this.id = post.getId();
         this.title = post.getTitle();
-        this.nickName = post.getUser().getNickName();
+//        this.nickName = post.getUser().getNickName();
         this.createdAt = post.getModifiedAt();
         this.modifiedAt = post.getCreatedAt();
     }
