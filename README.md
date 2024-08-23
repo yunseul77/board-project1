@@ -1,3 +1,3 @@
-# travel-review-board
+# review-board
 crud-board
 
