@@ -12,6 +12,10 @@
 </head>
 <body>
 <div class="container my-5">
+    <div th:if="${message}" class="alert alert-success">
+        <p th:text="${message}">게시글이 성공적으로 추가되었습니다.</p>
+    </div>
+
     <h1 th:text="${postDetail.title}">게시글 제목</h1>
     <p th:text="${postDetail.createdAt}">게시일</p>
     <p th:text="${postDetail.content}">게시글 내용</p>

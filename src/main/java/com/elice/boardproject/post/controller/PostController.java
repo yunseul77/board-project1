@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -54,19 +55,23 @@ public class PostController {
         return "post/postDetail"; // Thymeleaf 템플릿 이름
     }
 
-
     // 게시글 작성
     @PostMapping("/newPost")
-    public ResponseEntity<String> createBoard(@RequestBody PostRequestDTO postRequestDto) {
+    public String createBoard(@ModelAttribute PostRequestDTO postRequestDto, RedirectAttributes redirectAttributes) {
         Long postId = postService.savePost(postRequestDto);
-        return ResponseEntity.ok("게시글이 성공적으로 추가되었습니다." + postId);
+
+        redirectAttributes.addFlashAttribute("message", "게시글이 성공적으로 추가되었습니다.");
+        redirectAttributes.addFlashAttribute("postId", postId);
+
+        return "redirect:/post/detail/" + postId;
     }
 
     // 게시글 수정
-    @PatchMapping("/updatePost/{postId}")
-    public ResponseEntity<String> updateBoard(@PathVariable Long postId, @RequestBody PostRequestDTO postRequestDto) {
+    @PostMapping("/editPost/{postId}")
+    public String updatePost(@PathVariable Long postId, @ModelAttribute PostRequestDTO postRequestDto, RedirectAttributes redirectAttributes) {
         postService.updatePost(postId, postRequestDto);
-        return ResponseEntity.ok("게시글이 성공적으로 수정되었습니다.");
+        redirectAttributes.addFlashAttribute("message", "게시글이 성공적으로 수정되었습니다.");
+        return "redirect:/posts/" + postId;
     }
 
     // 게시글 삭제
