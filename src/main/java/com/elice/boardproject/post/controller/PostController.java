@@ -52,7 +52,7 @@ public class PostController {
         model.addAttribute("page", page);
         model.addAttribute("size", size);
 
-        return "post/postDetail"; // Thymeleaf 템플릿 이름
+        return "post/postDetail";
     }
 
     // 게시글 작성
