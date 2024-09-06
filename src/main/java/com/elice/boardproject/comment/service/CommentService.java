@@ -32,8 +32,11 @@ public class CommentService {
         return new PageImpl<>(commentResonseList, pageable, comments.getTotalElements());
     }
 
-    // 댓글 추가
-//    public Long addComment(Long postId, CommentRequestDTO commentRequestDTO) {
-//
-//    }
+    // 댓글 작성
+    public void addComment(Long postId, CommentRequestDTO commentRequestDTO) {
+        postRepository.findById(postId).orElseThrow(()-> new RuntimeException("해당 글을 찾을 수 없습니다."));
+
+        Comment newComment = commentRequestDTO.toEntity();
+        commentRepository.save(newComment);
+    }
 }

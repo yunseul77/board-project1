@@ -1,10 +1,10 @@
 package com.elice.boardproject.comment.controller;
 
+import com.elice.boardproject.comment.dto.CommentRequestDTO;
 import com.elice.boardproject.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -14,5 +14,9 @@ public class CommentController {
 
     // 댓글 작성
     @PostMapping("/addComment")
-    public
+    public String addComment(@PathVariable Long postId, @RequestBody CommentRequestDTO commentRequestDTO) {
+        commentService.addComment(postId, commentRequestDTO);
+
+        return "post/createPost";
+    }
 }
