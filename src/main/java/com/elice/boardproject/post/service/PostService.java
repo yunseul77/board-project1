@@ -52,13 +52,13 @@ public class PostService {
     // 게시글 수정
     @Transactional
     public void updatePost(Long postId, PostRequestDTO postRequestDto) {
-        Post post = postRepository.findById(postId)
+        Post updatedPost = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
-        post.setTitle(postRequestDto.getTitle());
-        post.setContent(postRequestDto.getContent());
+        updatedPost.setTitle(postRequestDto.getTitle());
+        updatedPost.setContent(postRequestDto.getContent());
 
-        postRepository.save(post);
+        postRepository.save(updatedPost);
     }
 
     // 게시글 삭제
