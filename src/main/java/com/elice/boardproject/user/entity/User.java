@@ -23,10 +23,10 @@ public class User extends BaseEntity {
     @Column(length = 50, nullable = false)
     private String name;
 
-    @Column(length = 50, nullable = false)
+    @Column(name = "nick_name", length = 50, nullable = false, unique = true)
     private String nickName;
 
-    @Column(length = 50, nullable = false, unique = true)
+    @Column(name = "login_id", length = 50, nullable = false, unique = true)
     private String loginId;
 
     @Column(length = 50, nullable = false)
